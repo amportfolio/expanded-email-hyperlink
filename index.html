@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>Expanded Email Hyperlink 1.0</title>
+
+	<!-- Normalize and Reset CSS -->
+	<link href="css/normalizeReset.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+
+	<!-- CSS styles for this presentation -->
+	<link href="css/presentation.css" rel="stylesheet">
+	<link href="css/expEmailLink.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="mainContent">
+
+	<h1 class="textCenter">Expanded Email Hyperlink</h1>
+	<p class="textCenter version">Version 1.0 by Alex Moschopoulos</p>
+
+	<h2>Introduction</h2>
+	<p>For something so simple as a email hyperlink, the current experience often doesn&rsquo;t fit with what users have been doing in the desktop space. I myself use Gmail, so while sending an email from mobile is as simple as a click, I&rsquo;m often copying email addresses and bringing them to Gmail.com on my laptop.</p>
+	<p>Adham Dannaway&rsquo;s use of a tooltip and some JavaScript inspired me to create a better experience, as his doesn't account for mobile users. jQuery is needed though for this.</p>
+	<p>The system uses mobile detection to determine if the user is on a mobile device, or a laptop (or desktop). A desktop/laptop user would see a tooltip when hovering over the hyperlink. If he clicks, then an email address is copied into the user&rsquo;s clipboard, and he can paste it into his email client (or site) of choice. If the user is on a mobile device, the tooltip functionality is turned off and the JavaScript will make the link act like any normal <em>mailto</em> hyperlink</p>
+	<h2>Example</h2>
+	<p>Feel free to send an <a onclick="emailHandler('#myAddress')" id="emailLink" tooltip-content="Click to copy my email address to your clipboard.">email</a>.<span id="myAddress" class="vanish">name@email.com</span></p>
+	<h2>Setup and Configuration</h2>
+	<p>The download contains an html file for the setup, a JavaScript file for the functionality, and both SCSS and CSS files for the styling. Bear in mind the tooltip is powered by CSS.</p>
+	<p>Beyond changing the text to anything you like to say, the only other real configuration is setting up your email address in two areas. First there&rsquo;s a <em>span</em> in the HTML page: 
+	<div class="grayCell code addMarginBtm2">
+		&lt;<span class="dkBlue">span</span> <span class="ltBlue">id=</span><span class="red">&quot;myAddress&quot;</span> <span class="ltBlue">class=</span><span class="red">&quot;vanish&quot;</span>&gt;name@email.com&lt;/<span class="dkBlue">span</span>&gt;
+	</div>
+	<p>This is necessary as an item for the JavaScript to copy into the clipboard when one clicks on the link. Then there is also the email address in the JavaScript:</p>
+	<div class="grayCell code addMarginBtm2">
+		var <span class="red">email</span> = &apos;<span class="ltBlue">name@email.com</span>&apos;;
+	</div>
+	<p>Now you can change the message of the tooltip. You first need to fix it in the HTML:</p>
+	<div class="grayCell code addMarginBtm2">
+		<span class="ltBlue">tooltip-content=</span><span class="red">&quot;Click to copy my email address to your clipboard.&quot;</span>
+	</div>
+	<p>That is for the initial showing of the tooltip. The functionality to switch messages when a user clicks is in the JavaScript:</p>
+	<div class="grayCell code addMarginBtm2">
+		$(<span class="green">&quot;#emailLink&quot;</span>).attr(<span class="ltBlue">&apos;tooltip-content&apos;</span>,<span class="red">&apos;My email address is in your clipboard.&apos;</span>);<br>
+		$(<span class="green">&quot;#emailLink&quot;</span>).mouseleave(function(){<br>
+		<span class="sinIndent">$(<span class="green">&quot;#emailLink&quot;</span>).attr(<span class="ltBlue">&apos;tooltip-content&apos;</span>,<span class="red">&apos;Click to copy my email address to your clipboard.&apos;</span>);</span><br>
+		});
+	</div>
+	<h2>Questions? Comments? Suggestions?</h2>
+	<p class="addMarginBtm3">Please feel free to <a href="https://amportfolio.com/contact">reach out</a>!</p>
+	<p class="copyright textCenter">&copy; 2019 | All rights reserved</p>
+</div>
+
+	<!-- Javascript -->
+	<!-- ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="js/expEmailLink.js"></script>
+
+</body>
+</html>
